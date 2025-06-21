@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Станислав Рябов — АрБ «Тара»</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      color: #333;
+    }
+    header, footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    section { margin-bottom: 40px; }
+    h2 { border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+
+    .gallery-container {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+    .gallery-track img {
+      min-width: 100%;
+      height: auto;
+      user-select: none;
+    }
+
+    .social-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .social-buttons a {
+      background-color: #0077ff;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 5px;
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .social-buttons a:hover {
+      background-color: #005fcc;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-track img { height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Станислав Рябов</h1>
+    <p>14 лет, клуб «Тара», армейский рукопашный бой</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>О Станиславе</h2>
+      <p>Станислав Рябов — юный и целеустремлённый боец из Тары. Активно тренируется по АРБ и уже имеет значимые достижения.</p>
+    </section>
+
+    <section>
+      <h2>Достижения</h2>
+      <ul>
+        <li>Призёр межрегионального турнира «Сыны Сибири»</li>
+        <li>Участник соревнований Министерства обороны РФ</li>
+        <li>Победы в 4 из 5 боёв на региональных этапах</li>
+      </ul>
+    </section>
+
+    <section class="gallery">
+      <h2>Фотогалерея</h2>
+      <div class="gallery-container" id="swipe-gallery">
+        <div class="gallery-track">
+          <img src="image1.jpg" alt="Фото 1">
+          <img src="image2.jpg" alt="Фото 2">
+          <img src="image3.jpg" alt="Фото 3">
+        </div>
+      </div>
+    </section>
+
+    <div class="social-buttons">
+      <a href="https://vk.com/stasik_tyson" target="_blank">VK Стаса</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Клуб АРБ «Тара»</p>
+  </footer>
+
+  <script>
+    const track = document.querySelector('.gallery-track');
+    let startX = 0, currentX = 0, currentIndex = 0;
+
+    const updateGalleryPosition = () => {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    };
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      currentX = e.touches[0].clientX;
+    });
+
+    track.addEventListener('touchend', () => {
+      const delta = currentX - startX;
+      if (delta > 50 && currentIndex > 0) currentIndex--;
+      if (delta < -50 && currentIndex < track.children.length - 1) currentIndex++;
+      updateGalleryPosition();
+    });
+  </script>
+</body>
+</html>
